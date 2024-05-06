@@ -1,0 +1,56 @@
+div[data-testid='am-todoist'] {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: scroll;
+  margin: 0.2em;
+}
+.am-under-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.am-todoist-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 1.5em;
+  border-radius: 6px;
+  border: 1px solid #515352;
+  color: var(--ls-primary-text-color);
+  filter: contrast(0.9);
+  font-size: 0.7em;
+  gap: 4px;
+  cursor: pointer;
+}
+.am-todoist-item:hover {
+  background: var(--ls-block-highlight-color)
+}
+.am-todoist-item[data-priority='1'] {
+  border-color: red;
+}
+.am-todoist-item[data-priority='2'] {
+  border-color: yellow;
+}
+.am-todoist-item[data-priority='3'] {
+  border-color: sky-blue;
+}
+.am-task-content {
+  font-size: 1.4em;
+}
+.am-task-description {
+  max-height: 120px;
+  overflow-y: scroll;
+}
+.am-task-extras {
+  display: flex;
+  margin-top: 8px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+.am-extras-label {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}

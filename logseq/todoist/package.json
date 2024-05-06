@@ -1,0 +1,30 @@
+{
+  "name": "todoist",
+  "main": "dist/index.html",
+  "private": true,
+  "author": {
+    "name": "Aryan Mann",
+    "email": "aryan.21.mann@gmail.com",
+    "url": "https://aryanmann.com/"
+  },
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "@doist/todoist-api-typescript": "^3.0.3",
+    "@logseq/libs": "^0.0.17",
+    "cohere-ai": "^7.9.5"
+  },
+  "logseq": {
+    "id": "am-todoist",
+    "title": "Inline Todoist"
+  }
+}
