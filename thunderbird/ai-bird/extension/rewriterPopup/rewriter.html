@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>AI Bird | Rewrite</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../app.css">
+</head>
+
+<body>
+    <div style="padding: 1em;">
+        <h3 style="margin: 0 0 1rem 0; text-align: center;">Rewrite | AI Bird</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <label for="userMessage" style="margin-bottom: 8px; font-size: 0.8rem;">Your Message</label>
+                <textarea style="min-width: 300px; min-height: 150px;" id="userMessage" placeholder="Hi Mrs..." rows="6"></textarea>
+                <div class="input-group">
+                    <label for="prompt-type">Type</label>
+                    <select id="prompt-type"></select>    
+                </div>
+                <button id="rewriteButton" style="margin-top: 8px; align-self: flex-end;">Rewrite</button>
+            </div>
+            <div id="result"></div>
+        </div>
+        <script type="module" src="rewriter.js"></script>
+    </div>
+</body>
+
+</html>

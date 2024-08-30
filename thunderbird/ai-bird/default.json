@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Minimal",
+        "task": "Your task is to correct spelling, grammatical, etc. mistakes and increase the quality of prose in (2) the email draft - without changing the semantic meaning."
+    },
+    {
+        "name": "Elaborate",
+        "task": "Your task is to correct grammatical mistakes and heavily improve the quality of prose in (2) the email draft. Do not change the semantic meaning. Additionally, rewrite the message slightly to ensure it feels professionally templated."
+    },
+    {
+        "name": "Professional",
+        "task": "Your task is to rewrite the entire email draft without changing the semantic meaning. While rewriting make it sound more professional and polite."
+    }
+]

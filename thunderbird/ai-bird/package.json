@@ -1,0 +1,16 @@
+{
+  "name": "ai-bird",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "sass --watch extension/app.scss extension/app.css",
+    "export": "node export.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^7.0.1"
+  }
+}

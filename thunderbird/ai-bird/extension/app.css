@@ -1,0 +1,62 @@
+@import './normalize.css';
+body {
+  background: whitesmoke;
+  color: #1e1e1e;
+}
+
+body > div {
+  padding: 32px 16px;
+}
+
+div.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+div.input-group > label {
+  margin-right: 1rem;
+}
+button {
+  background: #987284;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  transition: all 0.5s ease;
+}
+button:hover {
+  background: #5f4551;
+}
+
+#result:not(:empty) {
+  background: white;
+  border: 1px dashed #987284;
+  color: #1e1e1e;
+  margin-top: 1rem;
+  padding: 0.25rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+textarea {
+  border-radius: 8px;
+  border: 1px solid #F9B5AC;
+  padding: 0.5rem 0.5rem;
+}
+
+.copyable {
+  user-select: text;
+}
+.copyable:hover {
+  cursor: pointer;
+}
+.copyable:active {
+  font-weight: bold;
+}
+
+.mainPopup > h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/*# sourceMappingURL=app.css.map */
