@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "AI Bird",
     "description": "An AI powered extension to improve your emails.",
-    "version": "0.1",
+    "version": "0.2",
     "author": "Aryan Mann",
     "browser_specific_settings": {
         "gecko": {

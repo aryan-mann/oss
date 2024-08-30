@@ -3,24 +3,28 @@ import { getSettings, updateSettings, setResultMessage } from '../utils.js'
 const apiKeyInput = document.getElementById("api-key");
 const saveButton = document.getElementById("save-changes");
 const resultDiv = document.getElementById("result");
-
-/**
- * @typedef {object} Settings
- * @property {string|undefined} cohereApiKey
- */
+const promptRepo = document.getElementById("prompts");
 
 // Runtime
-const { cohereApiKey } = await getSettings();
-if (cohereApiKey) {
-    apiKeyInput.value = cohereApiKey;
-}
+const { cohereApiKey, promptRepository } = await getSettings();
+apiKeyInput.value = cohereApiKey || '';
+promptRepo.value = promptRepository || '';
 
 saveButton.addEventListener("click", async () => {
     try {
         const apiKey = apiKeyInput.value;
-        await updateSettings({ cohereApiKey: apiKey });
+        const promptRepoUrl = promptRepo.value || undefined;
+        await updateSettings({ cohereApiKey: apiKey, promptRepository: promptRepoUrl });
+        
+        const { prompts } = await getSettings();
+        
+        let msg = 'Settings saved!'
+        if (promptRepoUrl) {
+            msg += ` ${prompts.length} prompts loaded.`
+        }
+
         setResultMessage({ 
-            div: resultDiv, message: 'Settings saved!', timeout: 2000 
+            div: resultDiv, message: msg, timeout: 5000 
         })
     } catch (e) {
         setResultMessage({ 

@@ -63,6 +63,13 @@ export async function getCohereApiKey() {
  */
 export async function updateSettings(update) {
     const current = await messenger.storage.local.get('AIBirdSettings');
+
+    if ('promptRepository' in update && update.promptRepository) {
+        const resp = await fetch(update.promptRepository, { method: 'GET' });
+        const prompts = await resp.json();
+        update.prompts = prompts;
+    }
+
     await messenger.storage.local.set({ 'AIBirdSettings': { ...current, ...update } })
 }
 

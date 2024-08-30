@@ -16,6 +16,17 @@ div.input-group {
 div.input-group > label {
   margin-right: 1rem;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.logo > img {
+  height: 32px;
+  width: auto;
+}
+
 button {
   background: #987284;
   padding: 0.25rem 0.5rem;

@@ -9,11 +9,14 @@
 
 <body>
     <div style="padding: 1em;">
-        <h3 style="margin: 0 0 1rem 0; text-align: center;">Rewrite | AI Bird</h3>
+        <div class="logo">
+            <img src="../images/icon_64.png" alt="" />
+            <h3>Rewrite | AI Bird</h3>
+        </div>
         <div style="display: flex; flex-direction: column; gap: 8px;">
             <div style="display: flex; flex-direction: column; gap: 2px;">
                 <label for="userMessage" style="margin-bottom: 8px; font-size: 0.8rem;">Your Message</label>
-                <textarea style="min-width: 300px; min-height: 150px;" id="userMessage" placeholder="Hi Mrs..." rows="6"></textarea>
+                <textarea style="min-width: 300px; min-height: 150px; margin-bottom: 8px;" id="userMessage" placeholder="Hi Mrs..." rows="6"></textarea>
                 <div class="input-group">
                     <label for="prompt-type">Type</label>
                     <select id="prompt-type"></select>    
