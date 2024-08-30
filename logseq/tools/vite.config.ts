@@ -1,4 +1,14 @@
 import { defineConfig } from 'vite'
 export default defineConfig({
-    base: './'
+    base: './',
+    build: {
+        minify: false,
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['cohere-ai']
+                }
+            }
+        }
+    }
 })

@@ -1,6 +1,6 @@
 import style from './style.css?inline'
 import '@logseq/libs'
-import { CohereClient } from 'cohere-ai'
+// import { CohereClient } from 'cohere-ai'
 import { TodoistApi, Task } from "@doist/todoist-api-typescript"
 import { IHookEvent, UISlotIdentity } from '@logseq/libs/dist/LSPlugin'
 
@@ -10,7 +10,7 @@ type PluginSettings = {
 
 let settings: PluginSettings = {};
 let todoist: TodoistApi | undefined = undefined;
-let co: CohereClient = new CohereClient({ token: '0dMSPtpsYwnFtZ02Biz6ZycX4FdCdH5ta57OdlyV' })
+// let co: CohereClient = new CohereClient({ token: '0dMSPtpsYwnFtZ02Biz6ZycX4FdCdH5ta57OdlyV' })
 
 function refreshSettings() {
   const rawSettings = logseq.settings;
@@ -42,12 +42,11 @@ async function handleTodoistMacro(args: MacroArgs) {
     tasks.sort((t1, t2) => (t1.due?.date || '') > (t2.due?.date || '') ? 1 : 0)
   }
   catch (e) {
-    console.error(e);
     logseq.provideUI({
       key: uiKey,
       slot: slot,
       reset: true,
-      template: `<span>Error loading tasks - ${e}</span>`
+      template: `<span data-test-id="am-todoist-error">Error loading tasks: ${JSON.stringify(e)}</span>`
     })
     return;
   }
@@ -84,11 +83,6 @@ async function handleTodoistMacro(args: MacroArgs) {
   logseq.provideModel({
     openUrl(url: string) {
       window.open(url, '_blank')
-    },
-    refreshTasks(r, e) {
-      console.log('clicked it!!')
-      console.log(r);
-      console.log(e)
     }
   })
 
@@ -116,11 +110,9 @@ function setupPlugin() {
 
   // Style
   logseq.provideStyle(style);
-
   // Renderer
   logseq.App.onMacroRendererSlotted(async (args) => {
-    const { slot, payload } = args;
-    const macroName = payload.arguments[0].toLocaleLowerCase();
+    const macroName = args.payload.arguments[0].toLocaleLowerCase();
     console.log(`loading macro: ${macroName}`)
     if (macroName === "todoist") { 
       await handleTodoistMacro(args);

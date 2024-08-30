@@ -14,7 +14,13 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
-    "@logseq/libs": "^0.0.17"
+    "@doist/todoist-api-typescript": "^3.0.3",
+    "@logseq/libs": "^0.0.17",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "cohere-ai": "^7.9.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "logseq": {
     "id": "am-tools"

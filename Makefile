@@ -4,9 +4,9 @@ install:
 	cd logseq/calendar && pnpm install
 build-all:
 	for item in $(Packages); do \
-		echo $$item; \
+		cd $(CURDIR)/$$item && pnpm build && echo "Built $$item successfully!"; \
 	done
-clear-dist:
+clean:
 	for item in $(Packages); do \
 		echo rm -rf $$item/dist; \
 	done
