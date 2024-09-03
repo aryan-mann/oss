@@ -80,6 +80,7 @@ export async function updateSettings(update) {
  * @property {number|undefined} timeout - The number in milliseconds to clear the result after.
  * @property {boolean|undefined} asHtml - Whether to render as text or HTML.
  * @property {boolean|undefined} addCopy - Add the ability to copy the HTML content
+ * @property {boolean|undefined} addLoading - Add a loading symbol
  */
 
 /**
@@ -89,8 +90,16 @@ export async function updateSettings(update) {
 export function setResultMessage(args) {
     const { div, message, timeout, asHtml } = args;
 
+    if (args.addLoading === true) {
+        div.classList.add('loading');
+    } else {
+        if (div.classList.contains('loading')) {
+            div.classList.remove('loading');
+        }
+    }
+
     if (asHtml === true) {
-        div.replaceChildren();
+        div.replaceChildren([]);
 
         if (args.addCopy === true) {
             const copyWrapper = document.createElement('div');
@@ -101,15 +110,15 @@ export function setResultMessage(args) {
                 navigator.clipboard.writeText(copyText);
             })
 
-            copyWrapper.innerHTML = message;
+            copyWrapper.innerHTML = `<div class="llm">${message}</div>`;
             div.replaceChildren(copyWrapper)
         } else {
-            div.innerHTML = message;
+            div.innerHTML = `<div class="llm">${message}</div>`;
         }
     } else {
         const resultPre = document.createElement('pre');
         resultPre.textContent = message;
-        div.replaceChildren(resultPre);
+        div.replaceChildren(resultPre)
     }
 
     if (timeout !== undefined) {
@@ -117,6 +126,72 @@ export function setResultMessage(args) {
             div.replaceChildren()
         }, timeout)
     }
+}
+
+/**
+ * @returns {string}
+ */
+function extractBody(parts) {
+    let body = '';
+
+    for (let part of parts) {
+        if (part.parts) {
+            // Recursively extract if the part contains nested parts
+            body += extractBody(part.parts);
+        } else if (part.body) {
+            // Add the part body to the result
+            body += part.body;
+        }
+    }
+
+    return body;
+}
+
+function extractAttachmentNames(parts) {
+    let attachmentNames = [];
+
+    for (let part of parts) {
+        if (part.parts) {
+            // Recursively extract if the part contains nested parts
+            attachmentNames = attachmentNames.concat(extractAttachmentNames(part.parts));
+        } else if (part.filename) {
+            // If the part has a filename, it's an attachment
+            attachmentNames.push(part.filename);
+        }
+    }
+
+    return attachmentNames;
+}
+
+/**
+ * @typedef {Object} Message
+ * @property {string} body - The body of the message.
+ * @property {string[]} attachments - The attachments of the message.
+ * @property {string} sender - The sender of the message.
+ * @property {string[]} ccd - The CC'd recipients of the message.
+ */
+
+/**
+ * Gets the focused message from the active tab.
+ *
+ * @returns {Promise<Message>} An object containing the focused message.
+ */
+export async function getFocusedMessage() {
+    let tabs = await messenger.tabs.query({ active: true, currentWindow: true });
+    let message = await messenger.messageDisplay.getDisplayedMessage(tabs[0].id);
+    let fullMessage = await messenger.messages.getFull(message.id);
+
+    let body = extractBody(fullMessage.parts);
+    let attachments = extractAttachmentNames(fullMessage.parts);
+    let sender = fullMessage.headers.from[0]; // 'from' is an array, usually with one entry
+    let ccd = fullMessage.headers.cc || []; // 'cc' might be undefined if there's no CC
+
+    return {
+        body: body,
+        attachments: attachments,
+        sender: sender,
+        ccd: ccd
+    };
 }
 
 /**
@@ -135,15 +210,17 @@ export async function getUserComposedMessage() {
     const fullBodyString = body.textContent;
 
     // remove reply citations
-    const citedMessages = body.querySelectorAll("blockquote[type='cite']")
-    for (const citedMessage of citedMessages) {
-        body.removeChild(citedMessage);
-    }
-    // remove prefix before citations
-    const citedPrefixes = body.querySelectorAll("div.moz-cite-prefix");
-    for (const citedPrefix of citedPrefixes) {
-        body.removeChild(citedPrefix);
-    }
+    try {
+        const citedMessages = body.querySelectorAll("blockquote[type='cite']")
+        for (const citedMessage of citedMessages) {
+            body.removeChild(citedMessage);
+        }
+        // remove prefix before citations
+        const citedPrefixes = body.querySelectorAll("div.moz-cite-prefix");
+        for (const citedPrefix of citedPrefixes) {
+            body.removeChild(citedPrefix);
+        }
+    } catch {}
 
     return {
         html: body.innerHTML,

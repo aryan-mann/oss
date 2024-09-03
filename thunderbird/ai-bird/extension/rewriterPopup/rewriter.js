@@ -35,7 +35,8 @@ rewriteButton.addEventListener("click", async function() {
     const selectedPrompt = filteredPrompts[0];
 
     try {
-        setResultMessage({ div: resultDiv, message: "Rewriting.." })
+        setResultMessage({ div: resultDiv, message: "Rewriting..", addLoading: true })
+
         const response = await cohereChat({
             apiKey: cohereApiKey,
             preamble: `
@@ -55,7 +56,7 @@ ${context}
 
 The ## (2) EMAIL DRAFT will now be provided by the user. Respond in HTML.
             `.trim(),
-            message: `## (2) EMAIL DRAFT\n${html}`.trim()
+            message: `## (2) EMAIL DRAFT\n${userText.value}`.trim()
         })
 
         if ('message' in response) {

@@ -13,6 +13,10 @@ promptRepo.value = promptRepository || '';
 saveButton.addEventListener("click", async () => {
     try {
         const apiKey = apiKeyInput.value;
+        if (`${apiKey}`.trim().length <= 2) {
+            throw Error("Invalid API Key")
+        }
+
         const promptRepoUrl = promptRepo.value || undefined;
         await updateSettings({ cohereApiKey: apiKey, promptRepository: promptRepoUrl });
         
@@ -28,7 +32,7 @@ saveButton.addEventListener("click", async () => {
         })
     } catch (e) {
         setResultMessage({ 
-            div: resultDiv, message: `Unable to save settings: ${e}` 
+            div: resultDiv, message: `Unable to save settings: ${e.message || e}` 
         })
     }
 })

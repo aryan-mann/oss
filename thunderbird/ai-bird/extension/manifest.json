@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "AI Bird",
     "description": "An AI powered extension to improve your emails.",
-    "version": "0.2",
+    "version": "0.2.1",
     "author": "Aryan Mann",
     "browser_specific_settings": {
         "gecko": {
@@ -15,9 +15,14 @@
         "open_in_tab": false,
         "browser_style": true
     },
+    "message_display_action": {
+        "default_popup": "summarizePopup/summarize.html",
+        "default_title": "Summarize",
+        "default_icon": "images/icon_128.png"
+    },
     "compose_action": {
         "default_popup": "rewriterPopup/rewriter.html",
-        "default_title": "Rewrite | AI Bird",
+        "default_title": "Rewrite",
         "default_icon": "images/icon_128.png"
     },
     "permissions": [

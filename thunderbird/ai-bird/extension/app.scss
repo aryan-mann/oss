@@ -7,6 +7,18 @@ $pc4: #F9B5AC;
 $pc5: #F6FFF8;
 $text: #1e1e1e;
 
+@keyframes movingGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 body {
     background: whitesmoke;
     color: $text;
@@ -61,6 +73,14 @@ button {
         padding: 0.25rem 1rem;
         border-radius: 8px;
         font-size: 0.8rem;
+    }
+    .llm {
+        padding-bottom: 1em;
+    }
+    &.loading {
+        background: linear-gradient(-45deg, #fcd6cb, #ffb3d0, #dcf6ff, #caf9ee);
+        background-size: 400% 400%;
+        animation: movingGradient 4s ease infinite;
     }
 }
 

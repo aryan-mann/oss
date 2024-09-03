@@ -6,7 +6,9 @@ const archiver = require('archiver');
 const cwd = process.cwd();
 const sourceDir = path.join(cwd, 'extension');
 const destinationDir = path.join(cwd, 'output');
-const xpiOutputFile = path.join(cwd, 'aibird.xpi');
+const manifestFile = path.join(sourceDir, 'manifest.json');
+const manifestVersion = JSON.parse(fs.readFileSync(manifestFile, 'utf8'))['version'];
+const xpiOutputFile = path.join(cwd, `aibird-${manifestVersion}.xpi`);
 
 /**
  * @param {string} dir The directory to walk through
